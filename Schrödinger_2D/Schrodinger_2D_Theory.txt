@@ -47,11 +47,12 @@ The eigenvectors are reshaped to N x N arrays and squared to obtain the probabil
 Visualization:
 --------------
 The first few probability densities |ψ(x, y)|² are plotted to visualize the quantum states.
+This is editable inside the script to determine the number of quantum states according to your desire.
 
 Note:
 -----
 - The wavefunctions are separable and follow ψ_{n_x, n_y}(x, y) = φ_{n_x}(x) φ_{n_y}(y)
-- Energies are given by E_{n_x, n_y} = π² (n_x² + n_y²) / L² in atomic units.
+- Energies are given by E_{n_x, n_y} = π² (n_x² + n_y²) / L² in atomic units(for simplicity.
 - Numerical results agree well with analytical solutions.
 
 
