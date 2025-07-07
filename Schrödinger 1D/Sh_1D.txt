@@ -1,7 +1,7 @@
-| Item                   | Description                                                |
+|                        | Description                                                |
 | ---------------------- | ---------------------------------------------------------- |
 | Goal                   | Solve Schrödinger equation in an infinite well             |
 | Method                 | Finite difference method with tridiagonal matrix           |
-| Hamiltonian**          | Discretized second derivative for kinetic energy           |
+| Hamiltonian            | Discretized second derivative for kinetic energy           |
 | Potential              | Infinite at walls → enforce boundary condition manually    |
 | Eigenvalues            | Approximate quantized energies $E_n = n^2\pi^2 / (2L^2)$   |
