@@ -1,0 +1,70 @@
+
+Numerical Solution of the 2D Time-Independent Schrödinger Equation
+===================================================================
+
+Problem:
+--------
+We aim to solve the time-independent Schrödinger equation for a particle in a 2D infinite square potential well:
+
+    - (∂²ψ/∂x² + ∂²ψ/∂y²) = E ψ
+
+The domain is [0, L] × [0, L], where the potential V(x, y) = 0 inside the well and infinite outside. The boundary conditions are ψ = 0 at the walls.
+
+Discretization:
+---------------
+We discretize the 2D domain using a grid of N x N interior points. The Laplacian operator in two dimensions is approximated using finite differences:
+
+    ∂²ψ/∂x² ≈ (ψ_{i+1,j} - 2ψ_{i,j} + ψ_{i-1,j}) / dx²
+    ∂²ψ/∂y² ≈ (ψ_{i,j+1} - 2ψ_{i,j} + ψ_{i,j-1}) / dx²
+
+This leads to a sparse matrix representation of the Hamiltonian H.
+
+Kronecker Product Construction:
+------------------------------
+We construct the Hamiltonian H as the sum of two Kronecker products:
+
+    H = T ⊗ I + I ⊗ T
+
+Where:
+- T is the 1D tridiagonal matrix representing the kinetic energy operator in 1D.
+- I is the identity matrix of size N.
+
+Each eigenvalue of H corresponds to an energy level, and the corresponding eigenvector gives the wavefunction ψ(x, y) flattened into a 1D array.
+
+Eigenvalue Problem:
+-------------------
+We solve the matrix eigenvalue problem:
+
+    H ψ = E ψ
+
+to find the eigenvalues (energy levels) and eigenvectors (wavefunctions).
+
+Interpretation:
+---------------
+The eigenvalues correspond to the energy levels of the particle in the 2D well.
+The eigenvectors are reshaped to N x N arrays and squared to obtain the probability density |ψ(x, y)|².
+
+Visualization:
+--------------
+The first few probability densities |ψ(x, y)|² are plotted to visualize the quantum states.
+
+Note:
+-----
+- The wavefunctions are separable and follow ψ_{n_x, n_y}(x, y) = φ_{n_x}(x) φ_{n_y}(y)
+- Energies are given by E_{n_x, n_y} = π² (n_x² + n_y²) / L² in atomic units.
+- Numerical results agree well with analytical solutions.
+
+
+References:
+----------
+Griffiths, D. J.
+Introduction to Quantum Mechanics, 2nd ed., Pearson Prentice Hall, 2005.
+ISBN: 9780131118928
+
+Trefethen, L. N., & Bau, D.
+Numerical Linear Algebra, SIAM, 1997.
+https://doi.org/10.1137/1.9780898719574
+
+LeVeque, R. J.
+Finite Difference Methods for Ordinary and Partial Differential Equations: Steady-State and Time-Dependent Problems, SIAM, 2007.
+https://doi.org/10.1137/1.9780898717839
