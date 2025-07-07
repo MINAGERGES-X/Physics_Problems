@@ -1,32 +1,31 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.linalg import eigh
+from scipy.sparse import diags, kron, eye
 
-# Parameters
-L = 1.0               # Length of the potential well
-N = 50                # Number of interior points in each direction
-dx = L / (N + 1)      # Grid spacing
+# Parameters that represents the length of the well(L), the number grid points (N) and the grid spacing
+L = 1.0               
+N = 50                
+dx = L / (N + 1)      
 x = np.linspace(dx, L - dx, N)
 y = np.linspace(dx, L - dx, N)
 
-# Construct 1D Laplacian operator (tridiagonal)
+# In this step we construct 1D Laplacian operator (tridiagonal)
 main_diag = 2.0 / dx**2 * np.ones(N)
 off_diag = -1.0 / dx**2 * np.ones(N - 1)
 
-# 1D Laplacian matrix
-from scipy.sparse import diags, kron, eye
-
+# In this step we construct 1D Laplacian matrix
 T = diags([off_diag, main_diag, off_diag], [-1, 0, 1], shape=(N, N)).toarray()
 
-# 2D Laplacian via Kronecker sum: H = T ⊗ I + I ⊗ T
+# Constructing a 2D Laplacian via Kronecker sum: H = T ⊗ I + I ⊗ T
 I = np.eye(N)
 H = np.kron(T, I) + np.kron(I, T)
 
-# Solve the eigenvalue problem
+# Then we proceed to solve the eigenvalue problem
 num_eigenstates = 9
 energies, wavefuncs = eigh(H)
 
-# Extract and reshape the lowest energy eigenstates
+# Extracting and reforming the lowest energy eigenstates via a colour map
 for i in range(num_eigenstates):
     psi = wavefuncs[:, i].reshape((N, N))
     prob_density = psi**2
